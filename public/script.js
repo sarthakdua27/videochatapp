@@ -1,5 +1,5 @@
 //const { text } = require("express");
-
+let username=prompt("add name");
 const socket=io('/');
 const VideoPanel=document.getElementById('video-panel');
 const MyVideo= document.createElement('video');
@@ -35,18 +35,24 @@ navigator.mediaDevices.getUserMedia({
     let text = $('input')
 
 
-$('html').keydown((e)=>{
+//$('html').keydown((e)=>{
     //13 is key for enter key
-    if(e.which==13 && text.val().length!==0){
-        socket.emit('message',text.val());
-        text.val('')
+    //if(e.which==13 && text.val().length!==0){
+        //socket.emit('message',text.val());
+        //text.val('')
+    //}
+    $('html').keydown((e)=>{
+        //13 is key for enter key
+        if(e.which==13 && text.val().length!==0){
+            socket.emit('message',{"user":username, "message":text.val()});
+            text.val('')
     }
 });
 
 //got the message back - receiving end
-socket.on('MsgCreation',message=>{
-    console.log(message)
-$('.messages').append(`<li class="message"><b>user</b><br/>${message}</li>`);
+socket.on('MsgCreation',(msg)=>{
+    console.log(msg)
+$('.messages').append(`<li class="message"><b>${msg.user}</b><br/>${msg.message}</li>`);
 BottomScroll();
 })
 
@@ -142,4 +148,6 @@ const setVideoOn=()=>{
     document.querySelector('.videobutton').innerHTML=html;
 }
 
-//.
+
+
+

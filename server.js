@@ -30,9 +30,12 @@ io.on('connection',socket =>{
    socket.on('join-room',(UniqueRoomId,userId)=>{
       socket.join(UniqueRoomId);
       socket.broadcast.to(UniqueRoomId).emit('user-connected',userId);
-      socket.on('message',message=>{     //sending the message here
-         io.to(UniqueRoomId).emit('MsgCreation',message)
+      socket.on('message',obj=>{     //sending the message here
+         io.to(UniqueRoomId).emit('MsgCreation',obj)
       })
+      /*socket.on('message',message=>{     //sending the message here
+         io.to(UniqueRoomId).emit('MsgCreation',message)
+      })*/
    })
 
 })
