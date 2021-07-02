@@ -10,7 +10,7 @@ var peer = new Peer( undefined,{
     host:'/',   //localhost or heroku where is it gonna be
     port:'3030'
 }); 
-
+const peers = {}
 let myOwnVideo
 navigator.mediaDevices.getUserMedia({
     video:true,
@@ -32,7 +32,14 @@ navigator.mediaDevices.getUserMedia({
     socket.on('user-connected',(userId)=>{
         connectToUser(userId,stream);     //user got connected... go to connectuser function 
     })
+    socket.on('user-disconnected', userId => {
+        if (peers[userId]) peers[userId].close()
+      })
+    /*socket.on("remove",(id)=>{
+        document.querySelector(`.${id}`).remove();
+    })*/
     let text = $('input')
+
 
 
 //$('html').keydown((e)=>{
@@ -66,10 +73,14 @@ peer.on('open',id=>{
 const connectToUser =(userId,stream)=>{
 const call=peer.call(userId,stream) // call user , send him my stream
 const video=document.createElement('video');//creating new video element for him
+//video.setAttribute("id",socket.id)
 call.on('stream',userVideo =>{ //sending my own stream from here
     addVideo(video,userVideo) //add that video stream
 })
-
+call.on('close', () => {
+    video.remove()
+  })
+  peers[userId] = call
 }
 
 
@@ -149,5 +160,8 @@ const setVideoOn=()=>{
 }
 
 
-
-
+ //myOwnVideo.srcObject.getTracks().forEach(track => track.stop())
+/*document.querySelector(".block").addEventListener("click",()=>{
+   window.close()
+    //myOwnVideo.srcObject.getTracks().forEach(track => track.stop())
+})*/

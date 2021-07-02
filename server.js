@@ -26,10 +26,12 @@ app.get('/:room',(req,res)=>{
 
 
 io.on('connection',socket =>{
-
    socket.on('join-room',(UniqueRoomId,userId)=>{
       socket.join(UniqueRoomId);
       socket.broadcast.to(UniqueRoomId).emit('user-connected',userId);
+      socket.on('disconnect', () => {
+         socket.broadcast.to(UniqueRoomId).emit('user-disconnected', userId)
+      })
       socket.on('message',obj=>{     //sending the message here
          io.to(UniqueRoomId).emit('MsgCreation',obj)
       })
@@ -37,6 +39,10 @@ io.on('connection',socket =>{
          io.to(UniqueRoomId).emit('MsgCreation',message)
       })*/
    })
+   /*socket.on("disconnect",function(){
+      //document.querySelector(`.${socket.id}`).remove();
+      socket.emit("remove",socket.id);*/
+   
 
 })
 
