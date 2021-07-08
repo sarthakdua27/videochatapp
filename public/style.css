@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    
 }
 
 #video-panel{
@@ -20,19 +21,20 @@ video{
     display:flex;
 }
 
-.master-left{
-    flex:1;
+.master-left{ 
+    flex:1 !important; 
     display:flex;
     flex-direction: column;
 }
 
 .master-right{
     flex:0.2;
+   
 }
 
 .master-videos{
     flex-grow: 1;
-    background-color: black;
+    background-color:black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +44,7 @@ video{
 
 .controllingicons{
     display:flex;
-    background-color:#1C1E20 ;
+    background-color:#161d29 ;
     color:#D2D2D2;
     padding:5px;
     justify-content: space-between;
@@ -80,7 +82,7 @@ video{
 .master-right{
     display: flex;
     flex-direction: column;
-    background-color: #242324;
+    background-color: #1d2635;
     border-left: 1px solid #3D3D42;
 
 }
@@ -112,3 +114,9 @@ video{
 .stop{
     color:red;
 }
+/* .vcolor{ 
+    background-color: #6a5acd;
+}
+.mcolor{
+    background-color: #f6484a;
+} */
