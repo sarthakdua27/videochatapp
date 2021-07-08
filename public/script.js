@@ -103,12 +103,14 @@ const BottomScroll= () =>{
 
 //switch on and off audio
 const AudioOnandOff =()=>{
+    
     const enabled=myOwnVideo.getAudioTracks()[0].enabled;
     if(enabled){
         myOwnVideo.getAudioTracks()[0].enabled=false;
         setAudioOn();
     }
     else{
+       
         setAudioOff();
         myOwnVideo.getAudioTracks()[0].enabled=true;
     }
@@ -132,12 +134,14 @@ const setAudioOn=()=>{
 
 //switch video on and off
 const VideoOnandOff=()=>{
+   
     let enabled=myOwnVideo.getVideoTracks()[0].enabled;
     if(enabled){
         myOwnVideo.getVideoTracks()[0].enabled=false;
         setVideoOn();
     }
     else{
+        
         setVideoOff();
         myOwnVideo.getVideoTracks()[0].enabled=true;
     }
@@ -165,3 +169,28 @@ const setVideoOn=()=>{
    window.close()
     //myOwnVideo.srcObject.getTracks().forEach(track => track.stop())
 })*/
+$('#ChatToggle').on('click',function(e){
+    document.querySelector(".master-left").style.flex=1;
+    e.stopPropagation();
+    $('#ChatContainer').toggle('slow');
+    
+});
+
+$(document).on("click",function(){
+    $('#ChatContainer').hide("slow");
+
+    document.querySelector(".master-left").style.flex=0.8;
+});
+
+$('#ChatContainer').click(function(e){e.stopPropagation()}).hide();
+
+function screenshare(){
+let displayMediaOptions = { video: true, audio: false };
+        navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+            .then(function (stream) {
+                video_el.srcObject = stream;
+            })
+}
+
+
+
