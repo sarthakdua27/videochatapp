@@ -48,9 +48,11 @@ io.on('connection',socket =>{
 
 
     
-   
+   let port=process.env.PORT || 3030;
 
 
 
 //tells the server it is local host and port is 3030
-server.listen(3030);
+server.listen(port,function(){
+   console.log("server has started")
+});

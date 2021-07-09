@@ -185,11 +185,13 @@ $(document).on("click",function(){
 $('#ChatContainer').click(function(e){e.stopPropagation()}).hide();
 
 function screenshare(){
-let displayMediaOptions = { video: true, audio: false };
+let displayMediaOptions = { video: screen, audio: false };
         navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
             .then(function (stream) {
                 video_el.srcObject = stream;
             })
+            VideoPanel.append(video);
+            
 }
 
 
