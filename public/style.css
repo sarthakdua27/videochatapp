@@ -81,8 +81,8 @@ video{
 .recording-options:hover{
     background-color: black;
     border-radius: 6px;
-    height: 64px;
-    width: 77px;
+    /* height: 64px;
+    width: 77px; */
 }
 
 /* .leave{
@@ -97,7 +97,14 @@ video{
 
 }
 .master-head{
+    border: 5px solid black;
     color:#F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin: 8px;
 }
 .master-chat{
     flex-grow:1;
@@ -112,11 +119,16 @@ video{
     flex-grow:1;
     background-color: transparent;
     border:none;
-    color:#F5F5F5;
+    outline: none;
+    color: black;
+    background: slategray;
+    border-radius: 20px;
+    padding-left: 8px;
 }
 .messages{
     color:white;
     list-style: none;
+    padding: 8px;
 }
 .unmute{
     color:red;
@@ -171,14 +183,15 @@ video{
 
 .me .user-name {
     text-transform: uppercase;
-    font-size: 31px;
+    font-size: 30px;
     font-weight: bold;
 }
 
 
 .user-img img {
-    height: 88%;
-    width: 86%;
+    height: 100%;
+    width: 100%;
+    background: lightblue;
     border-radius: 50%;
 }
 
@@ -283,3 +296,34 @@ video{
     padding-left: 0px;
     padding-top: 3px;
 }
+.roomlink{
+    width: 10px;
+    outline: none;
+    border: none;
+    height: 10px;
+    background: #161d29;
+    color: #161d29;
+    /* width:1px;
+    outline:none;
+    border:none;
+    height:1px; */
+
+}
+.myicon{
+    padding-left: 0px;
+    margin: 0px;
+    padding-top: 4px;
+}
+li.message {
+    margin-right: 16px;
+    background: lightslategrey;
+    margin-bottom: 9px;
+    word-break: break-all;
+    border-radius: 30px;
+    padding-left: 25px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }

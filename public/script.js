@@ -13,7 +13,7 @@ MyVideo.muted=true;
 var peer = new Peer( undefined,{
     path:'/peerjs',
     host:'/',   
-    port:'443'
+    port:'3030'
 }); 
 const peers = {}
 let myOwnVideo
@@ -88,8 +88,9 @@ navigator.mediaDevices.getUserMedia({
                 div.classList.add("user");
                 div.classList.add("flex");
                 div.setAttribute("id", `${list[i].id}`);
-                div.innerHTML = `
-                <div class="user-img flex"> <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcOLQ265qQjUpwBYttcpeUY0TPTa4h_54RkA&usqp=CAU"" alt=""> </div>
+                div.innerHTML =  `<div class="user-img flex"> 
+                <img src="https://cdn4.iconfinder.com/data/icons/office-people-male-avatar/128/male-27-512.png" alt="">
+             </div>
                 <div class="user-name flex">${list[i].username}</div>
                 `;
                 ol.append(div);
@@ -102,10 +103,12 @@ navigator.mediaDevices.getUserMedia({
         div.classList.add("user");
         div.classList.add("flex");
         div.setAttribute("id", obj.id);
-        div.innerHTML = `
-            <div class="user-img flex"> <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcOLQ265qQjUpwBYttcpeUY0TPTa4h_54RkA&usqp=CAU"" alt=""> </div>
-            <div class="user-name">${obj.username}</div>
-        `;
+        div.innerHTML = `<div class="user-img flex">
+        <img src="https://cdn4.iconfinder.com/data/icons/office-people-male-avatar/128/male-27-512.png" alt="">
+        </div>
+        <div class="user-name flex">${obj.username}</div>
+    `;
+            
         ol.append(div);
     }
     function Deletemefromonlinelist(id) {
@@ -309,6 +312,20 @@ partc.addEventListener("click",(e)=>{
         list.classList.remove("hide");
     }
 })
+// document.querySelector(".roomlink").value=window.location.href;
+// function copy() {
+//     var copyText = document.querySelector("#input");
+//     copyText.select();
+//     document.execCommand("copy");
+// }
+// document.querySelector("#copy").addEventListener("click", copy);
+function copy() {
+    document.querySelector(".roomlink").value = window.location.href;
+    var copyText = document.querySelector("#input");
+    copyText.select();
+    document.execCommand("copy");
+}
+document.querySelector("#copy").addEventListener("click", copy);
 
 
 
