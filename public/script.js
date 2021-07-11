@@ -1,8 +1,13 @@
 //const { text } = require("express");
-let username=prompt("add name");
+let username=prompt("Please enter your Username");
+document.querySelector(".user-name").textContent = username + "  (ME)";
 const socket=io('/');
 const VideoPanel=document.getElementById('video-panel');
 const MyVideo= document.createElement('video');
+let recordbtn = document.querySelector(".record-video");
+let mediaRecorder; 
+let RecordedMedia; // final media
+let RecordingState=false;
 MyVideo.muted=true;
 
 var peer = new Peer( undefined,{
@@ -19,7 +24,23 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream =>{
     myOwnVideo=stream;//my stream coming from here i.e the promise
     addVideo(MyVideo,stream);
-
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.onstop = function (e) { // overrides MediaRecorder ka object
+        downloadVideo();
+    }
+    mediaRecorder.ondataavailable = function (e) {
+        RecordedMedia = e.data;
+    }
+    recordbtn.addEventListener("click", function (e) {
+        if (!RecordingState) {
+            mediaRecorder.start();
+            document.querySelector(".record-video-control").classList.add("record-animation");
+        } else {
+            mediaRecorder.stop();
+            document.querySelector(".record-video-control").classList.remove("record-animation");
+        }
+        RecordingState = !RecordingState;
+    })
     peer.on('call',call =>{
         //when user calls us we answer it and add it to the video stream
         call.answer(stream) //enter his(user) call
@@ -28,6 +49,68 @@ navigator.mediaDevices.getUserMedia({
             addVideo(video,userVideo) // add a video stream from him
         })
     })
+    socket.emit("onuserconnected", username);
+    socket.on("joinedthechat", function (obj) {
+        //<div class="chat joined">Joined the chat</div>
+        // let div = document.createElement("div");
+        // div.classList.add("chat");
+        // div.classList.add("joined");
+        // div.textContent = `${obj.username} joined the chat`
+        // chatwin.append(div);
+        // chatwin.scrollTop=chatwin.scrollHeight;
+        AddmetoOthers(obj); // as it is broadcasted
+    })
+
+    socket.on("leftthechat", function (obj) {
+        // let div = document.createElement("div");
+        // div.classList.add("chat");
+        // div.classList.add("left-chat");
+        // div.textContent = `${obj.username} left the chat`
+        // chatwin.append(div);
+        // chatwin.scrollTop=chatwin.scrollHeight;
+        Deletemefromonlinelist(obj.id);
+    })
+
+    // socket.on("uploadleftmsg", function (obj) {
+    //     // <div class="chat left-msg">Ji</div>
+    //     let div = document.createElement("div");
+    //     div.classList.add("chat");
+    //     div.classList.add("left-msg");
+    //     div.setAttribute("id",`${obj.id}`);
+    //     div.textContent = `${obj.username}: ${obj.chat}`;
+    //     chatwin.append(div);
+    // })
+    let ol = document.querySelector(".online-list");
+    socket.on("updatemylist", function (list) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].id != socket.id) {
+                let div = document.createElement("div");
+                div.classList.add("user");
+                div.classList.add("flex");
+                div.setAttribute("id", `${list[i].id}`);
+                div.innerHTML = `
+                <div class="user-img flex"> <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcOLQ265qQjUpwBYttcpeUY0TPTa4h_54RkA&usqp=CAU"" alt=""> </div>
+                <div class="user-name flex">${list[i].username}</div>
+                `;
+                ol.append(div);
+            }
+        }
+    })
+
+    function AddmetoOthers(obj) {
+        let div = document.createElement("div");
+        div.classList.add("user");
+        div.classList.add("flex");
+        div.setAttribute("id", obj.id);
+        div.innerHTML = `
+            <div class="user-img flex"> <img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcOLQ265qQjUpwBYttcpeUY0TPTa4h_54RkA&usqp=CAU"" alt=""> </div>
+            <div class="user-name">${obj.username}</div>
+        `;
+        ol.append(div);
+    }
+    function Deletemefromonlinelist(id) {
+        document.querySelector(`#${id}`).remove();
+    }
 
     socket.on('user-connected',(userId)=>{
         connectToUser(userId,stream);     //user got connected... go to connectuser function 
@@ -147,7 +230,16 @@ const VideoOnandOff=()=>{
     }
 
 }
+function downloadVideo() {
+    let vidurl=URL.createObjectURL(RecordedMedia); //converts blob object to URL
+    console.log("downloading");
+    console.log(vidurl);
+    let a=document.createElement("a");      // can only download on a tags therefore create an a tag
+    a.href=vidurl;          // add url to its href
+    a.download="video.mp4"; // set name of file
 
+    a.click(); 
+}
 const setVideoOff=()=>{
     const html=`
     <i class="fas fa-video"></i>
@@ -193,15 +285,30 @@ $('#ChatContainer').click(function(e){e.stopPropagation()}).hide();
 //             VideoPanel.append(video);
             
 // }
-function shareScreen() {
-    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-        const screenTrack = stream.getTracks()[0];
-        senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-        screenTrack.onended = function() {
-            senders.current.find(sender => sender.track.kind === "video").replaceTrack(userStream.current.getTracks()[1]);
-        }
-    })
-}
+// function shareScreen() {
+//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+//         const screenTrack = stream.getTracks()[0];
+//         senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+//         screenTrack.onended = function() {
+//             senders.current.find(sender => sender.track.kind === "video").replaceTrack(userStream.current.getTracks()[1]);
+//         }
+//     })
+// }
+let on=true;
+let partc=document.querySelector(".part");
+let list=document.querySelector(".left-side")
+ 
+partc.addEventListener("click",(e)=>{
+    if(on){
+        list.classList.add("hide");
+        on=false;
+    }
+    else{
+        on=true;
+        console.log(list.classList);
+        list.classList.remove("hide");
+    }
+})
 
 
 

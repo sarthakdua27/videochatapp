@@ -22,7 +22,7 @@
     
     
 
-    <div class="master">
+    <!-- <div class="master">
         <div class="master-left">
             <div class="master-videos">
                 <div id="video-panel">
@@ -85,6 +85,94 @@
 
     <script src="script.js"></script>
     
+</body>
+
+</html> -->
+<div class="master">
+    <div class="master-left">
+        <div class="master-videos">
+            <div id="video-panel">
+            </div>
+        </div>
+        <div class="controllingicons">
+            <div class="block">
+                <div onclick="AudioOnandOff()" class="icon mute">
+                    <i class="fas fa-microphone"></i>
+                    <span>MUTE</span>
+                </div>
+                <div onclick="VideoOnandOff()" class="icon videobutton">
+                    <i class="fas fa-video"></i>
+                    <span>VIDEO</span>
+                </div>
+            </div>
+            <div class="block">
+                <div class="icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </div>
+                <div class="icon part">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Paricipants</span>
+                </div>
+                <div id="ChatToggle" class="icon">
+                    <i class="far fa-comment-alt"></i>
+                    <span>Chat</span>
+                </div>
+                <div class="icon icon2">
+                    <div class="recording-options">
+                        <div class="record-video inner">
+                            <div class="record-video-control innest"></div>
+                        </div>
+                        <span>Recorder</span>
+                    </div>
+                </div>
+                
+            </div>
+            <div  onclick="window.open('https://www.google.com/', '_self', '');
+            window.close();" class="block letsleave">
+                
+                <div  class="icon letsleave">
+                    <span class="leave">Leave meeting</span>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    <div id="ChatContainer" class="master-right">
+        <div class="master-head">
+            <h5>chat</h5>
+        </div>
+        <div class="master-chat">
+            <ul class="messages">
+
+            </ul>
+
+        </div>
+        <div class="message-area">
+            <input id="chatting" type="text" placeholder="Type something">
+        </div>
+
+    </div>
+
+    <div class="left-side flex">
+        <div class="me">
+            <div class="user flex">
+                <div class="user-img"> <img
+                        src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcOLQ265qQjUpwBYttcpeUY0TPTa4h_54RkA&usqp=CAU""
+                        alt=""> </div>
+                <div class="user-name flex"></div>
+            </div>
+        </div>
+        PARTICIPANT LIST
+        <div class="online-list">
+         
+        </div>
+    </div>
+
+
+<script src="script.js"></script>
+
 </body>
 
 </html>
