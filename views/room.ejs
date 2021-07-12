@@ -199,7 +199,15 @@
 
 
 <script src="script.js"></script>
+<script>
+    document.querySelector("#mynewcopy").addEventListener("click", ()=>{
+                document.querySelector(".mynewlink").value = window.location.href;
+                var copyText = document.querySelector(".mynewlink");
+                copyText.select();
+                document.execCommand("copy");
+            });
 
+</script>
 </body>
 
 </html>
