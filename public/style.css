@@ -295,8 +295,9 @@ video{
 .icon2{
     padding-left: 0px;
     padding-top: 3px;
+    padding-right: -3px;
 }
-.mynewlink{
+.roomlink{
     width: 10px;
     outline: none;
     border: none;
