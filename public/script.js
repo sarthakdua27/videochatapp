@@ -124,7 +124,7 @@ navigator.mediaDevices.getUserMedia({
     /*socket.on("remove",(id)=>{
         document.querySelector(`.${id}`).remove();
     })*/
-    let text = $('input')
+    let text = $('#chatting');
 
 
 
@@ -319,13 +319,28 @@ partc.addEventListener("click",(e)=>{
 //     document.execCommand("copy");
 // }
 // document.querySelector("#copy").addEventListener("click", copy);
-function copy() {
-    document.querySelector(".roomlink").value = window.location.href;
-    var copyText = document.querySelector("#input");
-    copyText.select();
-    document.execCommand("copy");
-}
-document.querySelector("#copy").addEventListener("click", copy);
+// function copy() {
+//     document.querySelector(".roomlink").value = window.location.href;
+//     var copyText = document.querySelector("#input");
+//     copyText.select();
+//     document.execCommand("copy");
+// }
+// document.querySelector("#copy").addEventListener("click", copy);
+
+// function copy() {
+//     document.querySelector(".mynewlink").value = window.location.href;
+//     var copyText = document.querySelector(".mynewlink");
+//     copyText.select();
+//     document.execCommand("copy");
+// }
+// document.querySelector("#mynewcopy").addEventListener("click", copy);
+
+// document.querySelector("#mynewcopy").addEventListener("click", ()=>{
+//     document.querySelector(".mynewlink").textContent = window.location.href;
+//     var copyText = document.querySelector(".mynewlink");
+//     copyText.select();
+//     document.execCommand("copy");
+// });
 
 
 
