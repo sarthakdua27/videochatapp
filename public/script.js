@@ -1,4 +1,4 @@
-//const { text } = require("express");
+
 let username=prompt("Please enter your Username");
 document.querySelector(".user-name").textContent = username + "  (ME)";
 const socket=io('/');
@@ -25,7 +25,7 @@ navigator.mediaDevices.getUserMedia({
     myOwnVideo=stream;//my stream coming from here i.e the promise
     addVideo(MyVideo,stream);
     mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.onstop = function (e) { // overrides MediaRecorder ka object
+    mediaRecorder.onstop = function (e) { // overrides MediaRecorder object
         downloadVideo();
     }
     mediaRecorder.ondataavailable = function (e) {
@@ -51,35 +51,13 @@ navigator.mediaDevices.getUserMedia({
     })
     socket.emit("onuserconnected", username);
     socket.on("joinedthechat", function (obj) {
-        //<div class="chat joined">Joined the chat</div>
-        // let div = document.createElement("div");
-        // div.classList.add("chat");
-        // div.classList.add("joined");
-        // div.textContent = `${obj.username} joined the chat`
-        // chatwin.append(div);
-        // chatwin.scrollTop=chatwin.scrollHeight;
         AddmetoOthers(obj); // as it is broadcasted
     })
 
     socket.on("leftthechat", function (obj) {
-        // let div = document.createElement("div");
-        // div.classList.add("chat");
-        // div.classList.add("left-chat");
-        // div.textContent = `${obj.username} left the chat`
-        // chatwin.append(div);
-        // chatwin.scrollTop=chatwin.scrollHeight;
         Deletemefromonlinelist(obj.id);
     })
 
-    // socket.on("uploadleftmsg", function (obj) {
-    //     // <div class="chat left-msg">Ji</div>
-    //     let div = document.createElement("div");
-    //     div.classList.add("chat");
-    //     div.classList.add("left-msg");
-    //     div.setAttribute("id",`${obj.id}`);
-    //     div.textContent = `${obj.username}: ${obj.chat}`;
-    //     chatwin.append(div);
-    // })
     let ol = document.querySelector(".online-list");
     socket.on("updatemylist", function (list) {
         for (let i = 0; i < list.length; i++) {
@@ -121,21 +99,11 @@ navigator.mediaDevices.getUserMedia({
     socket.on('user-disconnected', userId => {
         if (peers[userId]) peers[userId].close()
       })
-    /*socket.on("remove",(id)=>{
-        document.querySelector(`.${id}`).remove();
-    })*/
     let text = $('#chatting');
 
 
-
-//$('html').keydown((e)=>{
-    //13 is key for enter key
-    //if(e.which==13 && text.val().length!==0){
-        //socket.emit('message',text.val());
-        //text.val('')
-    //}
     $('html').keydown((e)=>{
-        //13 is key for enter key
+        //13 is key for enter key , on pressing the message and name gets emitted
         if(e.which==13 && text.val().length!==0){
             socket.emit('message',{"user":username, "message":text.val()});
             text.val('')
@@ -259,11 +227,7 @@ const setVideoOn=()=>{
 }
 
 
- //myOwnVideo.srcObject.getTracks().forEach(track => track.stop())
-/*document.querySelector(".block").addEventListener("click",()=>{
-   window.close()
-    //myOwnVideo.srcObject.getTracks().forEach(track => track.stop())
-})*/
+//chat toggle functionality
 $('#ChatToggle').on('click',function(e){
     document.querySelector(".master-left").style.flex=1;
     e.stopPropagation();
@@ -279,24 +243,7 @@ $(document).on("click",function(){
 
 $('#ChatContainer').click(function(e){e.stopPropagation()}).hide();
 
-// function screenshare(){
-// let displayMediaOptions = { video: screen, audio: false };
-//         navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
-//             .then(function (stream) {
-//                 video_el.srcObject = stream;
-//             })
-//             VideoPanel.append(video);
-            
-// }
-// function shareScreen() {
-//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-//         const screenTrack = stream.getTracks()[0];
-//         senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-//         screenTrack.onended = function() {
-//             senders.current.find(sender => sender.track.kind === "video").replaceTrack(userStream.current.getTracks()[1]);
-//         }
-//     })
-// }
+//participants toggle functionality
 let on=true;
 let partc=document.querySelector(".part");
 let list=document.querySelector(".left-side")
@@ -312,35 +259,5 @@ partc.addEventListener("click",(e)=>{
         list.classList.remove("hide");
     }
 })
-// document.querySelector(".roomlink").value=window.location.href;
-// function copy() {
-//     var copyText = document.querySelector("#input");
-//     copyText.select();
-//     document.execCommand("copy");
-// }
-// document.querySelector("#copy").addEventListener("click", copy);
-// function copy() {
-//     document.querySelector(".roomlink").value = window.location.href;
-//     var copyText = document.querySelector("#input");
-//     copyText.select();
-//     document.execCommand("copy");
-// }
-// document.querySelector("#copy").addEventListener("click", copy);
-
-// function copy() {
-//     document.querySelector(".mynewlink").value = window.location.href;
-//     var copyText = document.querySelector(".mynewlink");
-//     copyText.select();
-//     document.execCommand("copy");
-// }
-// document.querySelector("#mynewcopy").addEventListener("click", copy);
-
-// document.querySelector("#mynewcopy").addEventListener("click", ()=>{
-//     document.querySelector(".mynewlink").textContent = window.location.href;
-//     var copyText = document.querySelector(".mynewlink");
-//     copyText.select();
-//     document.execCommand("copy");
-// });
-
 
 

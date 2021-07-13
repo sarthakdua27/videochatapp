@@ -8,7 +8,6 @@ body{
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* overflow: auto; */
     grid-gap: 25px;
 }
 
@@ -81,13 +80,7 @@ video{
 .recording-options:hover{
     background-color: black;
     border-radius: 6px;
-    /* height: 64px;
-    width: 77px; */
 }
-
-/* .leave{
-  color:red;  
-} */
 
 .master-right{
     display: flex;
@@ -136,12 +129,6 @@ video{
 .stop{
     color:red;
 }
-/* .vcolor{ 
-    background-color: #6a5acd;
-}
-.mcolor{
-    background-color: #f6484a;
-} */
 .flex {
     display: flex;
     align-items: center;
@@ -165,10 +152,7 @@ video{
 .user-img {
     height: 100%;
     width: 23%;
-    /* background: red; */
     border-radius: 46%;
-    /* opacity: 0.5; */
-    /* z-index: 5; */
     display: flex;
     align-items: center;
 }
@@ -247,7 +231,6 @@ video{
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: white; */
 }
 
 .record-animation {
@@ -304,10 +287,6 @@ video{
     height: 10px;
     background: #161d29;
     color: #161d29;
-    /* width:1px;
-    outline:none;
-    border:none;
-    height:1px; */
 
 }
 .myicon{
